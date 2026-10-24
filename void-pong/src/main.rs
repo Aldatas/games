@@ -10,22 +10,30 @@ async fn main() {
 
     loop {
         // input
-        if (is_key_down(KeyCode::Escape)) {
+        if is_key_down(KeyCode::Escape) {
             break;
         }
 
         // velocity
 
-        let dt = get_frame_time();
+        let dt = get_frame_time().min(0.05);
 
         ball += velocity * dt;
 
-        if ball.x <= radius || ball.x >= screen_width() - radius {
-            velocity.x = -velocity.x;
+        if ball.x <= radius {
+            ball.x = radius;
+            velocity.x = velocity.x.abs();
+        } else if ball.x >= screen_width() - radius {
+            ball.x = screen_width() - radius;
+            velocity.x = -velocity.x.abs();
         }
 
-        if ball.y <= radius || ball.y >= screen_height() - radius {
-            velocity.y = -velocity.y;
+        if ball.y <= radius {
+            ball.y = radius;
+            velocity.y = velocity.y.abs();
+        } else if ball.y >= screen_height() - radius {
+            ball.y = screen_height() - radius;
+            velocity.y = -velocity.y.abs();
         }
 
         clear_background(BLACK);
