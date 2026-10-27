@@ -229,7 +229,7 @@ impl Game {
                 / RAID_RAMP_DURATION)
                 .clamp(0.0, 1.0);
 
-        // Only draw the background after reaching endgame, fading it in using `intensity`
+        // Only draw the background after reaching endgame, fading it in using "intensity"
         if self.survival_time >= RAMP_DURATION {
             draw_cosmos(get_time() as f32, intensity, ultra, raid);
         }
@@ -391,7 +391,7 @@ impl Game {
                 );
 
                 let sub_text_size = 24.0;
-                let sub_text = "ENTER: Retry";
+                let sub_text = "SPACE: Retry";
                 let sub_text_dims = measure_text(sub_text, None, sub_text_size as _, 1.0);
                 draw_text(
                     sub_text,
@@ -457,7 +457,7 @@ fn draw_cosmos(time: f32, intensity: f32, ultra: f32, raid: f32) {
 
             let twinkle = 0.5 + 0.5 * (time * (2.0 + layer as f32) + seed).sin();
             let base_alpha = 0.1 + layer as f32 * 0.15;
-            // Fade stars in cleanly via `intensity`
+            // Fade stars in cleanly via "intensity"
             let alpha = base_alpha * (1.0 + intensity * 0.5) * twinkle * intensity;
 
             // Shift star colors depending on the layer
@@ -586,7 +586,7 @@ async fn main() {
 
         let dt = get_frame_time().min(0.05);
 
-        if is_key_pressed(KeyCode::Enter) && game.state == GameState::GameOver {
+        if is_key_pressed(KeyCode::Space) && game.state == GameState::GameOver {
             game.reset();
         }
 
